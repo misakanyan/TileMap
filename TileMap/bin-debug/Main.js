@@ -103,11 +103,7 @@ var Main = (function (_super) {
     p.createGameScene = function () {
         var map = new TileMap();
         this.addChild(map);
-        var originPoint = new Point(1, 1, 0);
-        var endPoint = new Point(5, 5, 0);
-        var astar = new AStar(originPoint, endPoint);
-        //var map1:Map = new Map(8,8);
-        //map.getMap();
+        //this.astarPath(9,0);
     };
     p.createBitmapByName = function (name) {
         var result = new egret.Bitmap();

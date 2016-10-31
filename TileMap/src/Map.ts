@@ -117,14 +117,13 @@ class Tile extends egret.DisplayObjectContainer {
         this.data = data;
         var bitmap = new egret.Bitmap;
         bitmap.texture = RES.getRes(data.image);
-        bitmap.x = (data.x-1)*100;
-        bitmap.y = (data.y-1)*100;
+        bitmap.x = (data.x - 1) * 100;
+        bitmap.y = (data.y - 1) * 100;
         this.addChild(bitmap);
-        //this.addEventListener(egret.TouchEvent.TOUCH_TAP,()=>{console.log("click")},this);
         //console.log(data.image)
     }
 
-    public clickEvent():void{
+    public clickEvent(): void {
         console.log(this.x);
         console.log(this.y);
     }
@@ -143,12 +142,30 @@ class TileMap extends egret.DisplayObjectContainer {
         for (var i = 0; i < config.length; i++) {
             var data = config[i];
             var tile = new Tile(data);
-            //tile.stage.addEventListener(egret.TouchEvent.TOUCH_TAP,tile.clickEvent,this);
             this.addChild(tile);
             //console.log("init success")
         }
+        this.touchEnabled = true;
+        this.addEventListener(egret.TouchEvent.TOUCH_TAP, (e: egret.TouchEvent) => {
+            var x:number = Math.floor(e.localX / 100);
+            var y:number = Math.floor(e.localY / 100);
+            this.astarPath(x,y);
+        }, this);
     }
-    
+
+    private grid: Grid = new Grid(10, 10);
+    private astar: AStar = new AStar();
+
+    public astarPath(endX:number,endY:number) {
+        this.grid.setStartPoint(0, 9);
+        this.grid.setEndPoint(endX, endY);
+        this.astar.findPath(this.grid);
+        var path: Point[] = this.astar.getPath();
+        for (var i: number = 0; i < path.length; i++) {
+            console.log(path[i]);
+        }
+    }
+
 
 }
 

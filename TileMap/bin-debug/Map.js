@@ -110,7 +110,6 @@ var Tile = (function (_super) {
         bitmap.x = (data.x - 1) * 100;
         bitmap.y = (data.y - 1) * 100;
         this.addChild(bitmap);
-        //this.addEventListener(egret.TouchEvent.TOUCH_TAP,()=>{console.log("click")},this);
         //console.log(data.image)
     }
     var d = __define,c=Tile,p=c.prototype;
@@ -125,15 +124,32 @@ var TileMap = (function (_super) {
     __extends(TileMap, _super);
     function TileMap() {
         _super.call(this);
+        this.grid = new Grid(10, 10);
+        this.astar = new AStar();
         this.init();
     }
     var d = __define,c=TileMap,p=c.prototype;
     p.init = function () {
+        var _this = this;
         for (var i = 0; i < config.length; i++) {
             var data = config[i];
             var tile = new Tile(data);
-            //tile.stage.addEventListener(egret.TouchEvent.TOUCH_TAP,tile.clickEvent,this);
             this.addChild(tile);
+        }
+        this.touchEnabled = true;
+        this.addEventListener(egret.TouchEvent.TOUCH_TAP, function (e) {
+            var x = Math.floor(e.localX / 100);
+            var y = Math.floor(e.localY / 100);
+            _this.astarPath(x, y);
+        }, this);
+    };
+    p.astarPath = function (endX, endY) {
+        this.grid.setStartPoint(0, 9);
+        this.grid.setEndPoint(endX, endY);
+        this.astar.findPath(this.grid);
+        var path = this.astar.getPath();
+        for (var i = 0; i < path.length; i++) {
+            console.log(path[i]);
         }
     };
     TileMap.TILE_SIZE = 100;
