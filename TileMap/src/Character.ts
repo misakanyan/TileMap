@@ -45,9 +45,10 @@ class Character extends egret.DisplayObjectContainer {
                 //this._body.skewY = 180;
             }
             this.startMove();
-            
+
             //用Timer来实现固定间隔顺序读取路径数组中的点并移动
-            var timer: egret.Timer = new egret.Timer(500, path.length - 1);
+            var interval:number = 500;
+            var timer: egret.Timer = new egret.Timer(interval, path.length - 1);
             timer.addEventListener(egret.TimerEvent.TIMER, function (e: egret.TimerEvent): void {
                 egret.Tween.get(this._body).to({ x: (path[timer.currentCount].x + 1) * 50, y: (path[timer.currentCount].y) * 50 }, 500);
                 console.log("target:" + path[timer.currentCount - 1].x + " , " + path[timer.currentCount - 1].y);

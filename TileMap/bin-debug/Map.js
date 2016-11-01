@@ -1,3 +1,4 @@
+//地图配置
 var config = [
     { x: 1, y: 1, walkable: true, image: "1_png" },
     { x: 2, y: 1, walkable: true, image: "1_png" },
@@ -100,15 +101,17 @@ var config = [
     { x: 9, y: 10, walkable: true, image: "1_png" },
     { x: 10, y: 10, walkable: true, image: "1_png" },
 ];
+//格子类
 var Tile = (function (_super) {
     __extends(Tile, _super);
     function Tile(data) {
         _super.call(this);
         this.data = data;
         var bitmap = new egret.Bitmap;
+        var size = 50;
         bitmap.texture = RES.getRes(data.image);
-        bitmap.x = (data.x - 1) * 50;
-        bitmap.y = (data.y - 1) * 50;
+        bitmap.x = (data.x - 1) * size;
+        bitmap.y = (data.y - 1) * size;
         this.addChild(bitmap);
         //console.log(data.image)
     }
@@ -120,6 +123,7 @@ var Tile = (function (_super) {
     return Tile;
 }(egret.DisplayObjectContainer));
 egret.registerClass(Tile,'Tile');
+//地图类
 var TileMap = (function (_super) {
     __extends(TileMap, _super);
     function TileMap() {
@@ -136,11 +140,6 @@ var TileMap = (function (_super) {
             this.addChild(tile);
         }
         this.touchEnabled = true;
-        /*this.addEventListener(egret.TouchEvent.TOUCH_TAP, (e: egret.TouchEvent) => {
-            var x:number = Math.floor(e.localX / 100);
-            var y:number = Math.floor(e.localY / 100);
-            this.astarPath(x,y);
-        }, this);*/
     };
     p.astarPath = function (beginX, beginY, endX, endY) {
         var path = new Array();

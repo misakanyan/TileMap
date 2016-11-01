@@ -1,3 +1,4 @@
+//地图配置
 var config: TileData[] = [
     { x: 1, y: 1, walkable: true, image: "1_png" },
     { x: 2, y: 1, walkable: true, image: "1_png" },
@@ -108,6 +109,8 @@ interface TileData {
     image: string;
 }
 
+
+//格子类
 class Tile extends egret.DisplayObjectContainer {
 
     data: TileData;
@@ -116,9 +119,10 @@ class Tile extends egret.DisplayObjectContainer {
         super();
         this.data = data;
         var bitmap = new egret.Bitmap;
+        var size:number = 50;
         bitmap.texture = RES.getRes(data.image);
-        bitmap.x = (data.x - 1) * 50;
-        bitmap.y = (data.y - 1) * 50;
+        bitmap.x = (data.x - 1) * size;
+        bitmap.y = (data.y - 1) * size;
         this.addChild(bitmap);
         //console.log(data.image)
     }
@@ -129,6 +133,7 @@ class Tile extends egret.DisplayObjectContainer {
     }
 }
 
+//地图类
 class TileMap extends egret.DisplayObjectContainer {
 
     public static TILE_SIZE = 100;
@@ -139,6 +144,7 @@ class TileMap extends egret.DisplayObjectContainer {
     }
 
     private init() {
+
         for (var i = 0; i < config.length; i++) {
             var data = config[i];
             var tile = new Tile(data);
@@ -146,11 +152,7 @@ class TileMap extends egret.DisplayObjectContainer {
             //console.log("init success")
         }
         this.touchEnabled = true;
-        /*this.addEventListener(egret.TouchEvent.TOUCH_TAP, (e: egret.TouchEvent) => {
-            var x:number = Math.floor(e.localX / 100);
-            var y:number = Math.floor(e.localY / 100);
-            this.astarPath(x,y);
-        }, this);*/
+
     }
 
     private grid: Grid = new Grid(10, 10);
@@ -165,7 +167,7 @@ class TileMap extends egret.DisplayObjectContainer {
         if (this.astar.findPath(this.grid)) {
             path = this.astar.getPath();
         }
-        
+
         return path;
 
     }

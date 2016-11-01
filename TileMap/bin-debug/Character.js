@@ -35,8 +35,9 @@ var Character = (function (_super) {
             else {
             }
             this.startMove();
-            //egret.Tween.get(this._body).to({ x: targetX, y: targetY }, 2000, egret.Ease.sineInOut).call(function () { this.idle() }, this);
-            var timer = new egret.Timer(500, path.length - 1);
+            //用Timer来实现固定间隔顺序读取路径数组中的点并移动
+            var interval = 500;
+            var timer = new egret.Timer(interval, path.length - 1);
             timer.addEventListener(egret.TimerEvent.TIMER, function (e) {
                 egret.Tween.get(this._body).to({ x: (path[timer.currentCount].x + 1) * 50, y: (path[timer.currentCount].y) * 50 }, 500);
                 console.log("target:" + path[timer.currentCount - 1].x + " , " + path[timer.currentCount - 1].y);
@@ -78,7 +79,7 @@ var Character = (function (_super) {
         }, this);
     };
     p.startidle = function () {
-        this._body.texture = RES.getRes("chara11_png");
+        this._body.texture = RES.getRes("chara1_png");
     };
     return Character;
 }(egret.DisplayObjectContainer));
