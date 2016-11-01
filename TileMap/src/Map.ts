@@ -132,7 +132,7 @@ class Tile extends egret.DisplayObjectContainer {
 class TileMap extends egret.DisplayObjectContainer {
 
     public static TILE_SIZE = 100;
-
+    
     constructor() {
         super();
         this.init();
@@ -146,17 +146,17 @@ class TileMap extends egret.DisplayObjectContainer {
             //console.log("init success")
         }
         this.touchEnabled = true;
-        this.addEventListener(egret.TouchEvent.TOUCH_TAP, (e: egret.TouchEvent) => {
+        /*this.addEventListener(egret.TouchEvent.TOUCH_TAP, (e: egret.TouchEvent) => {
             var x:number = Math.floor(e.localX / 100);
             var y:number = Math.floor(e.localY / 100);
             this.astarPath(x,y);
-        }, this);
+        }, this);*/
     }
 
     private grid: Grid = new Grid(10, 10);
     private astar: AStar = new AStar();
 
-    public astarPath(endX:number,endY:number) {
+    public astarPath(endX:number,endY:number):Point[] {
         this.grid.setStartPoint(0, 9);
         this.grid.setEndPoint(endX, endY);
         this.astar.findPath(this.grid);
@@ -164,6 +164,7 @@ class TileMap extends egret.DisplayObjectContainer {
         for (var i: number = 0; i < path.length; i++) {
             console.log(path[i]);
         }
+        return path;
     }
 
 

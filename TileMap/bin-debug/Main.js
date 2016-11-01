@@ -101,9 +101,19 @@ var Main = (function (_super) {
      * Create a game scene
      */
     p.createGameScene = function () {
+        //添加地图
         var map = new TileMap();
         this.addChild(map);
         //this.astarPath(9,0);
+        var chara = new Character(this);
+        chara.idle();
+        //添加点击监听
+        this.stage.addEventListener(egret.TouchEvent.TOUCH_TAP, function (e) {
+            var x = Math.floor(e.localX / 100);
+            var y = Math.floor(e.localY / 100);
+            var path = map.astarPath(x, y);
+            chara.move(e.localX, e.localY, path);
+        }, this);
     };
     p.createBitmapByName = function (name) {
         var result = new egret.Bitmap();

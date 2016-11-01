@@ -9,11 +9,13 @@ var game_file_list = [
 	"libs/modules/res/res.js",
 	"libs/modules/tween/tween.js",
 	"bin-debug/AStar.js",
+	"bin-debug/Character.js",
 	"bin-debug/Grid.js",
 	"bin-debug/LoadingUI.js",
 	"bin-debug/Main.js",
 	"bin-debug/Map.js",
 	"bin-debug/Point.js",
+	"bin-debug/StateMachine.js",
 	//----auto game_file_list end----
 ];
 

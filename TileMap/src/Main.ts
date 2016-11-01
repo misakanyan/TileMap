@@ -118,9 +118,22 @@ class Main extends egret.DisplayObjectContainer {
      */
     private createGameScene(): void {
 
+        //添加地图
         var map: TileMap = new TileMap();
         this.addChild(map);
         //this.astarPath(9,0);
+
+        var chara: Character = new Character(this);
+        chara.idle();
+
+        //添加点击监听
+        this.stage.addEventListener(egret.TouchEvent.TOUCH_TAP, function (e: egret.TouchEvent): void {
+            var x: number = Math.floor(e.localX / 100);
+            var y: number = Math.floor(e.localY / 100);
+            var path: Point[] = map.astarPath(x, y);
+            chara.move(e.localX, e.localY, path);
+
+        }, this);
 
     }
 

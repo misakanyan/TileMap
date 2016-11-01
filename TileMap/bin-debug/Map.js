@@ -130,18 +130,17 @@ var TileMap = (function (_super) {
     }
     var d = __define,c=TileMap,p=c.prototype;
     p.init = function () {
-        var _this = this;
         for (var i = 0; i < config.length; i++) {
             var data = config[i];
             var tile = new Tile(data);
             this.addChild(tile);
         }
         this.touchEnabled = true;
-        this.addEventListener(egret.TouchEvent.TOUCH_TAP, function (e) {
-            var x = Math.floor(e.localX / 100);
-            var y = Math.floor(e.localY / 100);
-            _this.astarPath(x, y);
-        }, this);
+        /*this.addEventListener(egret.TouchEvent.TOUCH_TAP, (e: egret.TouchEvent) => {
+            var x:number = Math.floor(e.localX / 100);
+            var y:number = Math.floor(e.localY / 100);
+            this.astarPath(x,y);
+        }, this);*/
     };
     p.astarPath = function (endX, endY) {
         this.grid.setStartPoint(0, 9);
@@ -151,6 +150,7 @@ var TileMap = (function (_super) {
         for (var i = 0; i < path.length; i++) {
             console.log(path[i]);
         }
+        return path;
     };
     TileMap.TILE_SIZE = 100;
     return TileMap;
