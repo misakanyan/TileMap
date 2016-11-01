@@ -124,13 +124,16 @@ class Main extends egret.DisplayObjectContainer {
         //this.astarPath(9,0);
 
         var chara: Character = new Character(this);
+        this.addChild(chara);
         chara.idle();
 
         //添加点击监听
         this.stage.addEventListener(egret.TouchEvent.TOUCH_TAP, function (e: egret.TouchEvent): void {
-            var x: number = Math.floor(e.localX / 100);
-            var y: number = Math.floor(e.localY / 100);
-            var path: Point[] = map.astarPath(x, y);
+            var startx:number = Math.floor((chara._body.x) / 50);
+            var starty:number = Math.floor(chara._body.y / 50);
+            var endx: number = Math.floor(e.localX / 50);
+            var endy: number = Math.floor(e.localY / 50);
+            var path: Point[] = map.astarPath(startx-1,starty,endx,endy);
             chara.move(e.localX, e.localY, path);
 
         }, this);

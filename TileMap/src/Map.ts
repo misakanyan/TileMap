@@ -117,8 +117,8 @@ class Tile extends egret.DisplayObjectContainer {
         this.data = data;
         var bitmap = new egret.Bitmap;
         bitmap.texture = RES.getRes(data.image);
-        bitmap.x = (data.x - 1) * 100;
-        bitmap.y = (data.y - 1) * 100;
+        bitmap.x = (data.x - 1) * 50;
+        bitmap.y = (data.y - 1) * 50;
         this.addChild(bitmap);
         //console.log(data.image)
     }
@@ -156,13 +156,13 @@ class TileMap extends egret.DisplayObjectContainer {
     private grid: Grid = new Grid(10, 10);
     private astar: AStar = new AStar();
 
-    public astarPath(endX:number,endY:number):Point[] {
-        this.grid.setStartPoint(0, 9);
+    public astarPath(beginX:number,beginY:number,endX:number,endY:number):Point[] {
+        this.grid.setStartPoint(beginX, beginY);
         this.grid.setEndPoint(endX, endY);
         this.astar.findPath(this.grid);
         var path: Point[] = this.astar.getPath();
         for (var i: number = 0; i < path.length; i++) {
-            console.log(path[i]);
+            //console.log(path[i]);
         }
         return path;
     }

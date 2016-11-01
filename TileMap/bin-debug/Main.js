@@ -106,12 +106,15 @@ var Main = (function (_super) {
         this.addChild(map);
         //this.astarPath(9,0);
         var chara = new Character(this);
+        this.addChild(chara);
         chara.idle();
         //添加点击监听
         this.stage.addEventListener(egret.TouchEvent.TOUCH_TAP, function (e) {
-            var x = Math.floor(e.localX / 100);
-            var y = Math.floor(e.localY / 100);
-            var path = map.astarPath(x, y);
+            var startx = Math.floor((chara._body.x) / 50);
+            var starty = Math.floor(chara._body.y / 50);
+            var endx = Math.floor(e.localX / 50);
+            var endy = Math.floor(e.localY / 50);
+            var path = map.astarPath(startx - 1, starty, endx, endy);
             chara.move(e.localX, e.localY, path);
         }, this);
     };

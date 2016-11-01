@@ -42,7 +42,7 @@ class AStar {
         //console.log(point.x);
         //point = this._startPoint;
         while (searchpoint != this._endPoint) {
-            console.log(searchpoint);
+            //console.log(searchpoint);
             var startX: number = Math.max(0, searchpoint.x - 1);
             
             var endX: number = Math.min(this._grid.getNumCols() - 1, searchpoint.x + 1);
@@ -53,7 +53,7 @@ class AStar {
 
                     var test: Point = this._grid.getPoint(i, j);
 
-                    if (test == searchpoint || !test.walkable) { continue; }
+                    if (test == searchpoint || !test.walkable||Math.abs(i-searchpoint.x)+Math.abs(j-searchpoint.y) == 2) { continue; }
                     var cost: number = this._straightCost;
                     if (!((searchpoint.x == test.x) || (searchpoint.y == test.y))) {
                         cost = this._diagCost;
@@ -89,7 +89,7 @@ class AStar {
             searchpoint = this._openList.shift() as Point;
         }
         this.buildPath();
-        console.log("buildpath");
+        //console.log("buildpath");
         return true;
     }
 
@@ -103,7 +103,7 @@ class AStar {
             this._path.unshift(point);
 
         }
-        console.log(point);
+        //console.log(point);
     }
 
     public getPath(): Point[] {

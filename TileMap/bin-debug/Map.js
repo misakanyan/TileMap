@@ -107,8 +107,8 @@ var Tile = (function (_super) {
         this.data = data;
         var bitmap = new egret.Bitmap;
         bitmap.texture = RES.getRes(data.image);
-        bitmap.x = (data.x - 1) * 100;
-        bitmap.y = (data.y - 1) * 100;
+        bitmap.x = (data.x - 1) * 50;
+        bitmap.y = (data.y - 1) * 50;
         this.addChild(bitmap);
         //console.log(data.image)
     }
@@ -142,13 +142,12 @@ var TileMap = (function (_super) {
             this.astarPath(x,y);
         }, this);*/
     };
-    p.astarPath = function (endX, endY) {
-        this.grid.setStartPoint(0, 9);
+    p.astarPath = function (beginX, beginY, endX, endY) {
+        this.grid.setStartPoint(beginX, beginY);
         this.grid.setEndPoint(endX, endY);
         this.astar.findPath(this.grid);
         var path = this.astar.getPath();
         for (var i = 0; i < path.length; i++) {
-            console.log(path[i]);
         }
         return path;
     };

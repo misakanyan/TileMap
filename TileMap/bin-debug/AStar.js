@@ -31,7 +31,7 @@ var AStar = (function () {
         //console.log(point.x);
         //point = this._startPoint;
         while (searchpoint != this._endPoint) {
-            console.log(searchpoint);
+            //console.log(searchpoint);
             var startX = Math.max(0, searchpoint.x - 1);
             var endX = Math.min(this._grid.getNumCols() - 1, searchpoint.x + 1);
             var startY = Math.max(0, searchpoint.y - 1);
@@ -39,7 +39,7 @@ var AStar = (function () {
             for (var i = startX; i <= endX; i++) {
                 for (var j = startY; j <= endY; j++) {
                     var test = this._grid.getPoint(i, j);
-                    if (test == searchpoint || !test.walkable) {
+                    if (test == searchpoint || !test.walkable || Math.abs(i - searchpoint.x) + Math.abs(j - searchpoint.y) == 2) {
                         continue;
                     }
                     var cost = this._straightCost;
@@ -77,7 +77,7 @@ var AStar = (function () {
             searchpoint = this._openList.shift();
         }
         this.buildPath();
-        console.log("buildpath");
+        //console.log("buildpath");
         return true;
     };
     p.buildPath = function () {
@@ -88,7 +88,7 @@ var AStar = (function () {
             point = point.parent;
             this._path.unshift(point);
         }
-        console.log(point);
+        //console.log(point);
     };
     p.getPath = function () {
         return this._path;
