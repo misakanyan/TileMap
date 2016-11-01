@@ -132,7 +132,7 @@ class Tile extends egret.DisplayObjectContainer {
 class TileMap extends egret.DisplayObjectContainer {
 
     public static TILE_SIZE = 100;
-    
+
     constructor() {
         super();
         this.init();
@@ -156,17 +156,19 @@ class TileMap extends egret.DisplayObjectContainer {
     private grid: Grid = new Grid(10, 10);
     private astar: AStar = new AStar();
 
-    public astarPath(beginX:number,beginY:number,endX:number,endY:number):Point[] {
+    public astarPath(beginX: number, beginY: number, endX: number, endY: number): Point[] {
+
+        var path: Point[] = new Array();
         this.grid.setStartPoint(beginX, beginY);
         this.grid.setEndPoint(endX, endY);
-        this.astar.findPath(this.grid);
-        var path: Point[] = this.astar.getPath();
-        for (var i: number = 0; i < path.length; i++) {
-            //console.log(path[i]);
-        }
-        return path;
-    }
 
+        if (this.astar.findPath(this.grid)) {
+            path = this.astar.getPath();
+        }
+        
+        return path;
+
+    }
 
 }
 

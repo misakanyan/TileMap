@@ -143,11 +143,11 @@ var TileMap = (function (_super) {
         }, this);*/
     };
     p.astarPath = function (beginX, beginY, endX, endY) {
+        var path = new Array();
         this.grid.setStartPoint(beginX, beginY);
         this.grid.setEndPoint(endX, endY);
-        this.astar.findPath(this.grid);
-        var path = this.astar.getPath();
-        for (var i = 0; i < path.length; i++) {
+        if (this.astar.findPath(this.grid)) {
+            path = this.astar.getPath();
         }
         return path;
     };

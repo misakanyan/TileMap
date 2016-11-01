@@ -45,10 +45,11 @@ class Character extends egret.DisplayObjectContainer {
                 //this._body.skewY = 180;
             }
             this.startMove();
-            //egret.Tween.get(this._body).to({ x: targetX, y: targetY }, 2000, egret.Ease.sineInOut).call(function () { this.idle() }, this);
+            
+            //用Timer来实现固定间隔顺序读取路径数组中的点并移动
             var timer: egret.Timer = new egret.Timer(500, path.length - 1);
             timer.addEventListener(egret.TimerEvent.TIMER, function (e: egret.TimerEvent): void {
-                egret.Tween.get(this._body).to({ x: (path[timer.currentCount].x + 1) * 50, y: (path[timer.currentCount].y) * 50 }, 400, egret.Ease.sineInOut);
+                egret.Tween.get(this._body).to({ x: (path[timer.currentCount].x + 1) * 50, y: (path[timer.currentCount].y) * 50 }, 500);
                 console.log("target:" + path[timer.currentCount - 1].x + " , " + path[timer.currentCount - 1].y);
             }, this);
             timer.addEventListener(egret.TimerEvent.TIMER_COMPLETE, function (e: egret.TimerEvent): void {
@@ -98,7 +99,7 @@ class Character extends egret.DisplayObjectContainer {
 
     public startidle() {
 
-        this._body.texture = RES.getRes("chara11_png");
+        this._body.texture = RES.getRes("chara1_png");
 
     }
 

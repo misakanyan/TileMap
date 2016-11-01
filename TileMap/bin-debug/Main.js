@@ -115,7 +115,9 @@ var Main = (function (_super) {
             var endx = Math.floor(e.localX / 50);
             var endy = Math.floor(e.localY / 50);
             var path = map.astarPath(startx - 1, starty, endx, endy);
-            chara.move(e.localX, e.localY, path);
+            if (path.length > 0) {
+                chara.move(e.localX, e.localY, path);
+            }
         }, this);
     };
     p.createBitmapByName = function (name) {
