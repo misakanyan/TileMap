@@ -70,7 +70,7 @@ var Character = (function (_super) {
         //循环执行
         egret.Ticker.getInstance().register(function () {
             if (_this._ifmove) {
-                count = count + 0.5;
+                count += 1.0;
                 if (count >= list.length) {
                     count = 0;
                 }

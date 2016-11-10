@@ -32,6 +32,7 @@ class Character extends egret.DisplayObjectContainer {
         //中止缓动动画，达到实现运动中更换目标点的目的
         egret.Tween.removeTweens(this._body);
 
+
         //触发状态机
         this._stateMachine.setState(this._moveState);
 
@@ -50,10 +51,12 @@ class Character extends egret.DisplayObjectContainer {
             var interval:number = 500;
             var timer: egret.Timer = new egret.Timer(interval, path.length - 1);
             timer.addEventListener(egret.TimerEvent.TIMER, function (e: egret.TimerEvent): void {
+
                 egret.Tween.get(this._body).to({ x: (path[timer.currentCount].x + 1) * 50, y: (path[timer.currentCount].y) * 50 }, 500);
                 console.log("target:" + path[timer.currentCount - 1].x + " , " + path[timer.currentCount - 1].y);
             }, this);
             timer.addEventListener(egret.TimerEvent.TIMER_COMPLETE, function (e: egret.TimerEvent): void {
+
                 this.idle();
             }, this);
             timer.start();
@@ -86,7 +89,7 @@ class Character extends egret.DisplayObjectContainer {
         egret.Ticker.getInstance().register(() => {
 
             if (this._ifmove) {
-                count = count + 0.5;
+                count　+= 1.0;
                 if (count >= list.length) {
                     count = 0;
                 }

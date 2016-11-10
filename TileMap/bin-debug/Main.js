@@ -110,6 +110,7 @@ var Main = (function (_super) {
         chara.idle();
         //添加点击监听
         this.stage.addEventListener(egret.TouchEvent.TOUCH_TAP, function (e) {
+            chara.idle();
             var startx = Math.floor((chara._body.x) / 50);
             var starty = Math.floor(chara._body.y / 50);
             var endx = Math.floor(e.localX / 50);
