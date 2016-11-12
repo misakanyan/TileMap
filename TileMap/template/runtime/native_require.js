@@ -16,6 +16,7 @@ var game_file_list = [
 	"bin-debug/Map.js",
 	"bin-debug/Point.js",
 	"bin-debug/StateMachine.js",
+	"bin-debug/Task.js",
 	//----auto game_file_list end----
 ];
 

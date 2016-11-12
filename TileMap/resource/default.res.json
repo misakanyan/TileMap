@@ -1,7 +1,7 @@
 {
 	"groups": [
 		{
-			"keys": "bg_jpg,egret_icon_png,description_json,1_png,2_png,chara1_png,chara10_png,chara11_png,chara12_png,chara13_png,chara14_png,chara15_png,chara16_png,chara17_png,chara18_png,chara19_png,chara2_png,chara20_png,chara21_png,chara22_png,chara23_png,chara24_png,chara25_png,chara26_png,chara3_png,chara4_png,chara5_png,chara6_png,chara7_png,chara8_png,chara9_png,3_png",
+			"keys": "bg_jpg,egret_icon_png,description_json,1_png,2_png,chara1_png,chara10_png,chara11_png,chara12_png,chara13_png,chara14_png,chara15_png,chara16_png,chara17_png,chara18_png,chara19_png,chara2_png,chara20_png,chara21_png,chara22_png,chara23_png,chara24_png,chara25_png,chara26_png,chara3_png,chara4_png,chara5_png,chara6_png,chara7_png,chara8_png,chara9_png,3_png,gameconfig_json,npc_1_jpg,npc_0_jpg,exclamation_jpg,question_jpg",
 			"name": "preload"
 		}
 	],
@@ -165,6 +165,31 @@
 			"name": "3_png",
 			"type": "image",
 			"url": "assets/3.png"
+		},
+		{
+			"name": "gameconfig_json",
+			"type": "json",
+			"url": "res/gameconfig.json"
+		},
+		{
+			"name": "npc_1_jpg",
+			"type": "image",
+			"url": "assets/npc_1.jpg"
+		},
+		{
+			"name": "npc_0_jpg",
+			"type": "image",
+			"url": "assets/npc_0.jpg"
+		},
+		{
+			"name": "exclamation_jpg",
+			"type": "image",
+			"url": "assets/exclamation.jpg"
+		},
+		{
+			"name": "question_jpg",
+			"type": "image",
+			"url": "assets/question.jpg"
 		}
 	]
 }

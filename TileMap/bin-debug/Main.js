@@ -101,25 +101,50 @@ var Main = (function (_super) {
      * Create a game scene
      */
     p.createGameScene = function () {
-        //添加地图
-        var map = new TileMap();
-        this.addChild(map);
-        //this.astarPath(9,0);
-        var chara = new Character(this);
-        this.addChild(chara);
-        chara.idle();
-        //添加点击监听
-        this.stage.addEventListener(egret.TouchEvent.TOUCH_TAP, function (e) {
-            chara.idle();
-            var startx = Math.floor((chara._body.x) / 50);
-            var starty = Math.floor(chara._body.y / 50);
-            var endx = Math.floor(e.localX / 50);
-            var endy = Math.floor(e.localY / 50);
-            var path = map.astarPath(startx - 1, starty, endx, endy);
-            if (path.length > 0) {
-                chara.move(e.localX, e.localY, path);
-            }
+        TaskService.initTask();
+        //console.log(TaskService.taskList[0]);
+        var npc_0 = new NPC("npc_0", "mikoto", "npc_0_jpg", EmojiStatus.EXCLAMATION);
+        npc_0.x = 100;
+        npc_0.y = 200;
+        this.addChild(npc_0);
+        var npc_1 = new NPC("npc_1", "touma", "npc_1_jpg", EmojiStatus.EMPTY);
+        npc_1.x = 300;
+        npc_1.y = 200;
+        this.addChild(npc_1);
+        TaskService.addObserver(npc_0);
+        TaskService.addObserver(npc_1);
+        //console.log(npc_0.x);
+        //console.log(npc_0.y);
+        npc_0.addEventListener(egret.TouchEvent.TOUCH_TAP, function () {
+            //console.log("click npc0");
+            TaskService.accept("0");
         }, this);
+        npc_0.touchEnabled = true;
+        npc_1.addEventListener(egret.TouchEvent.TOUCH_TAP, function (e) {
+            TaskService.complete("0");
+            TaskService.submit("0");
+        }, this);
+        npc_1.touchEnabled = true;
+        /* //添加地图
+         var map: TileMap = new TileMap();
+         this.addChild(map);
+         //this.astarPath(9,0);
+ 
+         var chara: Character = new Character(this);
+         this.addChild(chara);
+         chara.idle();
+ 
+         //添加点击监听
+         this.stage.addEventListener(egret.TouchEvent.TOUCH_TAP, function (e: egret.TouchEvent): void {
+             var startx: number = Math.floor((chara._body.x) / 50);
+             var starty: number = Math.floor(chara._body.y / 50);
+             var endx: number = Math.floor(e.localX / 50);
+             var endy: number = Math.floor(e.localY / 50);
+             var path: Point[] = map.astarPath(startx - 1, starty, endx, endy);
+             if (path.length > 0) {
+                 chara.move(e.localX, e.localY, path);
+             }
+         }, this);*/
     };
     p.createBitmapByName = function (name) {
         var result = new egret.Bitmap();

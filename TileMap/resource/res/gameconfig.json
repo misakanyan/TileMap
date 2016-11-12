@@ -1,0 +1,9 @@
+{
+    "tasks":[
+        {"id":"0","name":"click","status":1,"desc":"click npc_1","fromNpcId":"npc_0","toNpcId":"npc_1"}
+    ],
+    "npcs":[
+        {"id":"npc_0"},
+        {"id":"npc_1"}
+    ]
+}
