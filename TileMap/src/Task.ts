@@ -44,7 +44,12 @@ class TaskService {
 
     public static taskList: Task[] = [];
 
-    static initTask() {
+    static init() {
+        this.initTask();
+        this.initObserver();
+    }
+
+    private static initTask(){
         var data = RES.getRes("gameconfig_json");
         for (var i = 0; i < data.tasks.length; i++) {
             var task: Task = new Task(data.tasks[i].id, data.tasks[i].name, data.tasks[i].status, data.tasks[i].desc, data.tasks[i].fromNpcId, data.tasks[i].toNpcId);
@@ -52,9 +57,12 @@ class TaskService {
         }
     }
 
-    static addObserver(o:Observer) {
+    private static initObserver() {
 
-            this.observerList.push(o);
+        NPCManager.init();
+         for(var i:number = 1;i<NPCManager.NPCList.length;i++){
+             this.observerList.push(NPCManager.NPCList[i]);
+         }
  
     }
 
@@ -74,8 +82,8 @@ class TaskService {
         if (!task) {
             return ErrorCode.MISSING_TASK;
         }
-        console.log(task.status);
-        console.log(TaskStatus.DURING);
+        //console.log(task.status);
+        //console.log(TaskStatus.DURING);
         if (task.status == TaskStatus.ACCEPTABLE) {
             task.status = TaskStatus.DURING;
             console.log('accept:' + id);
@@ -164,66 +172,3 @@ class TaskPanel implements Observer {
 
 }
 
-class NPC extends egret.DisplayObjectContainer implements Observer {
-
-    private _id: string;
-    private _name: string;
-    private _bitmap: egret.Bitmap = new egret.Bitmap;
-    private _emoji: egret.Bitmap = new egret.Bitmap;
-    private _taskList: Task[];
-
-    constructor(id: string, name: string, bitmap: string, emoji: EmojiStatus) {
-        super();
-        this._id = id;
-        this._name = name;
-        this._bitmap.texture = RES.getRes(bitmap);
-        this.changeEmoji(emoji);
-        this._emoji.x = this._bitmap.x - (this._bitmap.width - this._emoji.width) / 2;
-        this._emoji.y = this._bitmap.y + this._emoji.height;
-        this._taskList = TaskService.getTaskByCustomRole(this._id);
-        this.addChild(this._bitmap);
-        this.addChild(this._emoji);
-    }
-
-
-    onChange(task: Task) {
-        if (this._taskList.length > 0) {
-            for (var i: number = 0; i < this._taskList.length; i++) {
-                if (task == this._taskList[i]) {
-                    if (task.fromNpcId == this._id && task.status == TaskStatus.DURING) {
-                        this.changeEmoji(EmojiStatus.EMPTY);
-                    } else if (task.toNpcId == this._id && task.status == TaskStatus.DURING) {
-                        this.changeEmoji(EmojiStatus.QUESTION);
-                    } else if (task.toNpcId == this._id && task.status == TaskStatus.SUBMITTED) {
-                        this.changeEmoji(EmojiStatus.EMPTY);
-                    }
-                }
-            }
-        }
-    }
-
-    private changeEmoji(status: EmojiStatus): void {
-        switch (status) {
-            case EmojiStatus.EMPTY:
-                this._emoji.texture = null;
-                break;
-            case EmojiStatus.QUESTION:
-                this._emoji.texture = RES.getRes("question_jpg");
-                break;
-            case EmojiStatus.EXCLAMATION:
-                this._emoji.texture = RES.getRes("exclamation_jpg");
-                break;
-            default:
-                break;
-        }
-    }
-
-}
-
-enum EmojiStatus {
-
-    EMPTY,
-    QUESTION,
-    EXCLAMATION
-
-}

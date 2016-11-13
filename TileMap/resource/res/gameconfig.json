@@ -3,7 +3,7 @@
         {"id":"0","name":"click","status":1,"desc":"click npc_1","fromNpcId":"npc_0","toNpcId":"npc_1"}
     ],
     "npcs":[
-        {"id":"npc_0"},
-        {"id":"npc_1"}
+        {"id":"npc_0","name":"mikoto","bitmap":"npc_0_jpg","emoji":0,"x":100,"y":200},
+        {"id":"npc_1","name":"touma","bitmap":"npc_1_jpg","emoji":0,"x":300,"y":200}
     ]
 }
