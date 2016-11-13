@@ -123,37 +123,6 @@ class Main extends egret.DisplayObjectContainer {
             this.addChild(NPCManager.NPCList[i]);
         }
 
-
-        //console.log(TaskService.taskList[0]);
-        /*var npc_0:NPC = new NPC("npc_0","mikoto","npc_0_jpg",EmojiStatus.EXCLAMATION);
-        npc_0.x = 100;
-        npc_0.y = 200;
-        this.addChild(npc_0);
-        var npc_1:NPC = new NPC("npc_1","touma","npc_1_jpg",EmojiStatus.EMPTY);
-        npc_1.x = 300;
-        npc_1.y = 200;
-        this.addChild(npc_1);
-        */
-
-        // TaskService.initObserver(npc_0);
-        //  TaskService.initObserver(npc_1);
-
-        //console.log(npc_0.x);
-        //console.log(npc_0.y);
-
-       /* npc_0.addEventListener(egret.TouchEvent.TOUCH_TAP, () => {
-            //console.log("click npc0");
-            TaskService.accept("0");
-        }, this);
-        npc_0.touchEnabled = true;
-
-        npc_1.addEventListener(egret.TouchEvent.TOUCH_TAP, function (e: egret.TouchEvent): void {
-            TaskService.complete("0");
-            TaskService.submit("0");
-        }, this);
-
-        npc_1.touchEnabled = true;
-        */
         /* //添加地图
          var map: TileMap = new TileMap();
          this.addChild(map);
