@@ -66,6 +66,10 @@ class TaskService {
 
     }
 
+    static addObserver(o: Observer) {
+        this.observerList.push(o);
+    }
+
     static notify(task: Task) {
         for (var i: number = 0; i < TaskService.observerList.length; i++) {
             this.observerList[i].onChange(task);
@@ -164,20 +168,67 @@ interface Strategy {
 
 }
 
-class TaskTextElement extends egret.DisplayObjectContainer{
+class TaskTextElement extends egret.DisplayObjectContainer {
 
-    _taskid: string;
-    _text: egret.TextField = new egret.TextField;
+    private _taskid: string;
+    taskNameText: egret.TextField = new egret.TextField;
+    taskStatusText: egret.TextField = new egret.TextField;
+    taskDescText: egret.TextField = new egret.TextField;
 
-    constructor(id: string, name: string, status: TaskStatus) {
+    constructor(id: string, name: string, status: TaskStatus, desc: string) {
         super();
         this._taskid = id;
-        this._text.text = id + "   " + name + "   " + ChineseTaskStatus[status];
-        this.addChild(this._text);
+        this.taskNameText.text = "任务:" + name;
+        this.taskNameText.size = 14;
+        this.taskNameText.fontFamily = "微软雅黑";
+        this.taskNameText.textColor = 0xffff00;
+        this.taskNameText.textAlign = egret.HorizontalAlign.LEFT;
+        this.taskNameText.type = egret.TextFieldType.DYNAMIC;
+        this.taskNameText.x = 0;
+        this.taskNameText.y = 0;
+        this.taskNameText.width = 200;
+        this.taskNameText.height = 20;
+        this.taskNameText.lineSpacing = 6;
+        this.taskNameText.multiline = true;
+
+        this.taskDescText.text = desc;
+        this.taskDescText.size = 14;
+        this.taskDescText.fontFamily = "微软雅黑";
+        this.taskDescText.textAlign = egret.HorizontalAlign.LEFT;
+        this.taskDescText.type = egret.TextFieldType.DYNAMIC;
+        this.taskDescText.x = 0;
+        this.taskDescText.y = 20;
+        this.taskDescText.width = 200;
+        this.taskDescText.height = 20;
+        this.taskDescText.lineSpacing = 6;
+        this.taskDescText.multiline = true;
+
+        this.taskStatusText.text = "当前状态:" + ChineseTaskStatus[status];
+        this.taskStatusText.size = 14;
+        this.taskStatusText.fontFamily = "微软雅黑";
+        this.taskStatusText.textAlign = egret.HorizontalAlign.LEFT;
+        this.taskStatusText.type = egret.TextFieldType.DYNAMIC;
+        this.taskStatusText.x = 0;
+        this.taskStatusText.y = 40;
+        this.taskStatusText.width = 200;
+        this.taskStatusText.height = 50;
+        this.taskStatusText.lineSpacing = 6;
+        this.taskStatusText.multiline = true;
+
+        this.addChild(this.taskNameText);
+        this.addChild(this.taskDescText);
+        this.addChild(this.taskStatusText);
     }
 
-    changeText(task:Task){
-        this._text.text = task.id + "   " + task.name + "   " + ChineseTaskStatus[task.status];
+    changeText(task: Task) {
+        this.taskNameText.text = "任务:" + task.name;
+        this.taskStatusText.text = "当前状态:" + ChineseTaskStatus[task.status];
+        this.taskDescText.text = task.desc;
+        console.log("panel taskinfo change success");
+    }
+
+    public get taskId(): string {
+        return this._taskid;
     }
 
 
@@ -185,21 +236,29 @@ class TaskTextElement extends egret.DisplayObjectContainer{
 
 class TaskPanel extends egret.DisplayObjectContainer implements Observer {
 
-    private taskTextList:TaskTextElement[] = [];
+    private taskTextList: TaskTextElement[] = [];
     private bg: egret.Bitmap = new egret.Bitmap;
+    private bgShape: egret.Shape = new egret.Shape;
 
     constructor() {
         super();
+        this.bgShape.x = 0;
+        this.bgShape.y = 0;
+        this.bgShape.graphics.clear();
+        this.bgShape.graphics.beginFill(0x000000, .5);
+        this.bgShape.graphics.drawRect(0, 0, 200, 200);
+        this.bgShape.graphics.endFill();
+        this.addChild(this.bgShape);
         for (var i: number = 0; i < TaskService.taskList.length; i++) {
-            var taskText = new TaskTextElement(TaskService.taskList[i].id, TaskService.taskList[i].name, TaskService.taskList[i].status);
+            var taskText = new TaskTextElement(TaskService.taskList[i].id, TaskService.taskList[i].name, TaskService.taskList[i].status, TaskService.taskList[i].desc);
             this.taskTextList.push(taskText);
             this.addChild(taskText);
         }
     }
 
     onChange(task: Task) {
-        for(var i:number = 0;i<this.taskTextList.length;i++){
-            if(task.id == this.taskTextList[i]._taskid){
+        for (var i: number = 0; i < this.taskTextList.length; i++) {
+            if (task.id == this.taskTextList[i].taskId) {
                 this.taskTextList[i].changeText(task);
             }
         }

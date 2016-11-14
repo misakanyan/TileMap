@@ -123,6 +123,11 @@ class Main extends egret.DisplayObjectContainer {
             this.addChild(NPCManager.NPCList[i]);
         }
 
+        var panel = new TaskPanel();
+        panel.x = 0;
+        panel.y = 50;
+        this.addChild(panel);
+        TaskService.addObserver(panel);
         /* //添加地图
          var map: TileMap = new TileMap();
          this.addChild(map);
