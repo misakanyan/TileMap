@@ -6,6 +6,8 @@ class NPC extends egret.DisplayObjectContainer implements Observer {
     private _emoji: egret.Bitmap = new egret.Bitmap;
     private _taskList: Task[];
 
+    private dialog:DialogPanel = new DialogPanel();
+
     constructor(id: string, name: string, bitmap: string, emoji: EmojiStatus,x:number,y:number) {
         super();
         this._id = id;
@@ -24,15 +26,39 @@ class NPC extends egret.DisplayObjectContainer implements Observer {
         this._emoji.y = this._bitmap.y - (this._bitmap.height+this._emoji.height)/2;
         
         this._taskList = TaskService.getTaskByCustomRole(this._id);
+        for(var i:number = 0;i<this._taskList.length;i++){
+            if(this._taskList[i].fromNpcId == this._id){
+                this.changeEmoji(EmojiStatus.EXCLAMATION);
+                break;
+            }
+        }
         this.addChild(this._bitmap);
         this.addChild(this._emoji);
-        this.addEventListener(egret.TouchEvent.TOUCH_TAP,NPCManager.setTouchEvent,this);
+        this.addEventListener(egret.TouchEvent.TOUCH_TAP,this.onClick,this);
         this.touchEnabled = true;
 
+        this.dialog.anchorOffsetX = this.dialog.width / 2;
+        this.dialog.anchorOffsetY = this.dialog.height / 2;
+        this.dialog.x = -(this._bitmap.width)/2;
+        this.dialog.y = 50;
+         this.dialog.addEventListener(egret.TouchEvent.TOUCH_TAP,()=>{
+            console.log("onclick");
+            for(var i:number = 0;i<this._taskList.length;i++){
+                if(this._taskList[i].fromNpcId == this._id){
+                    TaskService.accept(this._taskList[i].id);
+                }else if(this._taskList[i].toNpcId == this.id){
+                    TaskService.complete(this._taskList[i].id);
+                    TaskService.submit(this._taskList[i].id);
+                }
+                this.dialog.visible = false;
+            }
+        },this);
+        this.dialog.touchEnabled = true;
+
         
-        console.log("this:"+this.x+","+this.y);
-        console.log("bitmap:"+this._bitmap.x+","+this._bitmap.y);
-        console.log("emoji:"+this._emoji.x+","+this._emoji.y);
+        //console.log("this:"+this.x+","+this.y);
+        //console.log("bitmap:"+this._bitmap.x+","+this._bitmap.y);
+        //console.log("emoji:"+this._emoji.x+","+this._emoji.y);
 
 
 
@@ -47,8 +73,11 @@ class NPC extends egret.DisplayObjectContainer implements Observer {
         if (this._taskList.length > 0) {
             for (var i: number = 0; i < this._taskList.length; i++) {
                 if (task == this._taskList[i]) {
+                    console.log("accept task fromNpcId:" + task.fromNpcId + " status:" + task.status);
+                    console.log("accept task fromNpcId:" + this._id + " status:" + TaskStatus.DURING);
                     if (task.fromNpcId == this._id && task.status == TaskStatus.DURING) {
                         this.changeEmoji(EmojiStatus.EMPTY);
+                        //console.log("取消叹号");
                     } else if (task.toNpcId == this._id && task.status == TaskStatus.DURING) {
                         this.changeEmoji(EmojiStatus.QUESTION);
                     } else if (task.toNpcId == this._id && task.status == TaskStatus.SUBMITTED) {
@@ -75,6 +104,10 @@ class NPC extends egret.DisplayObjectContainer implements Observer {
         }
     }
 
+    private onClick(){
+        this.addChild(this.dialog);
+    }
+
 }
 
 enum EmojiStatus {
@@ -98,7 +131,7 @@ class NPCManager{
         }
     }
 
-    static setTouchEvent(e:egret.TouchEvent){
+    /*static setTouchEvent(e:egret.TouchEvent){
         var data = e.currentTarget;
         switch (data.id) {
             case "npc_0":
@@ -112,5 +145,6 @@ class NPCManager{
                 break;
         }
     }
+    */
 
 }

@@ -60,7 +60,7 @@ class TaskService {
     private static initObserver() {
 
         NPCManager.init();
-        for (var i: number = 1; i < NPCManager.NPCList.length; i++) {
+        for (var i: number = 0; i < NPCManager.NPCList.length; i++) {
             this.observerList.push(NPCManager.NPCList[i]);
         }
 
@@ -93,6 +93,7 @@ class TaskService {
             console.log('accept:' + id);
         }
         this.notify(task);
+
     }
 
     static complete(id: string) {
@@ -184,9 +185,9 @@ class TaskTextElement extends egret.DisplayObjectContainer {
         this.taskNameText.textColor = 0xffff00;
         this.taskNameText.textAlign = egret.HorizontalAlign.LEFT;
         this.taskNameText.type = egret.TextFieldType.DYNAMIC;
-        this.taskNameText.x = 0;
-        this.taskNameText.y = 0;
-        this.taskNameText.width = 200;
+        this.taskNameText.x = 10;
+        this.taskNameText.y = 10;
+        this.taskNameText.width = 180;
         this.taskNameText.height = 20;
         this.taskNameText.lineSpacing = 6;
         this.taskNameText.multiline = true;
@@ -196,10 +197,10 @@ class TaskTextElement extends egret.DisplayObjectContainer {
         this.taskDescText.fontFamily = "微软雅黑";
         this.taskDescText.textAlign = egret.HorizontalAlign.LEFT;
         this.taskDescText.type = egret.TextFieldType.DYNAMIC;
-        this.taskDescText.x = 0;
-        this.taskDescText.y = 20;
-        this.taskDescText.width = 200;
-        this.taskDescText.height = 20;
+        this.taskDescText.x = 10;
+        this.taskDescText.y = 30;
+        this.taskDescText.width = 180;
+        this.taskDescText.height = 40;
         this.taskDescText.lineSpacing = 6;
         this.taskDescText.multiline = true;
 
@@ -208,10 +209,10 @@ class TaskTextElement extends egret.DisplayObjectContainer {
         this.taskStatusText.fontFamily = "微软雅黑";
         this.taskStatusText.textAlign = egret.HorizontalAlign.LEFT;
         this.taskStatusText.type = egret.TextFieldType.DYNAMIC;
-        this.taskStatusText.x = 0;
-        this.taskStatusText.y = 40;
-        this.taskStatusText.width = 200;
-        this.taskStatusText.height = 50;
+        this.taskStatusText.x = 10;
+        this.taskStatusText.y = 70;
+        this.taskStatusText.width = 180;
+        this.taskStatusText.height = 40;
         this.taskStatusText.lineSpacing = 6;
         this.taskStatusText.multiline = true;
 
@@ -266,13 +267,28 @@ class TaskPanel extends egret.DisplayObjectContainer implements Observer {
 
 }
 
-class DialogPanel extends egret.DisplayObjectContainer{
+class DialogPanel extends egret.DisplayObjectContainer {
 
-    private dialog:egret.TextField = new egret.TextField;
+    private desc: egret.TextField = new egret.TextField;
+    button: egret.Shape = new egret.Shape;
 
-    constructor(){
+    constructor() {
         super();
-        
+
+        this.button.x = 0;
+        this.button.y = 0;
+        this.button.graphics.clear();
+        this.button.graphics.beginFill(0x000000, 1.0);
+        this.button.graphics.drawRect(0, 0, 50, 30);
+        this.button.graphics.endFill();
+        this.addChild(this.button);
+
+        this.desc.text = "确定";
+        this.desc.size = 14;
+        this.desc.fontFamily = "微软雅黑";
+        this.desc.x = 0;
+        this.desc.y = 0;
+        this.addChild(this.desc);
     }
 }
 

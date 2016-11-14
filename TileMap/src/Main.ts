@@ -118,7 +118,7 @@ class Main extends egret.DisplayObjectContainer {
      */
     private createGameScene(): void {
 
-        //添加地图
+        /*//添加地图
          var map: TileMap = new TileMap();
          this.addChild(map);
          //this.astarPath(9,0);
@@ -137,7 +137,7 @@ class Main extends egret.DisplayObjectContainer {
              if (path.length > 0) {
                  chara.move(e.localX, e.localY, path);
              }
-         }, this);
+         }, this);*/
 
          TaskService.init();
         for(var i:number = 0;i<NPCManager.NPCList.length;i++){

@@ -1,9 +1,11 @@
 var NPC = (function (_super) {
     __extends(NPC, _super);
     function NPC(id, name, bitmap, emoji, x, y) {
+        var _this = this;
         _super.call(this);
         this._bitmap = new egret.Bitmap;
         this._emoji = new egret.Bitmap;
+        this.dialog = new DialogPanel();
         this._id = id;
         this._name = name;
         this._bitmap.texture = RES.getRes(bitmap);
@@ -19,13 +21,37 @@ var NPC = (function (_super) {
         this._emoji.x = this._bitmap.x;
         this._emoji.y = this._bitmap.y - (this._bitmap.height + this._emoji.height) / 2;
         this._taskList = TaskService.getTaskByCustomRole(this._id);
+        for (var i = 0; i < this._taskList.length; i++) {
+            if (this._taskList[i].fromNpcId == this._id) {
+                this.changeEmoji(EmojiStatus.EXCLAMATION);
+                break;
+            }
+        }
         this.addChild(this._bitmap);
         this.addChild(this._emoji);
-        this.addEventListener(egret.TouchEvent.TOUCH_TAP, NPCManager.setTouchEvent, this);
+        this.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onClick, this);
         this.touchEnabled = true;
-        console.log("this:" + this.x + "," + this.y);
-        console.log("bitmap:" + this._bitmap.x + "," + this._bitmap.y);
-        console.log("emoji:" + this._emoji.x + "," + this._emoji.y);
+        this.dialog.anchorOffsetX = this.dialog.width / 2;
+        this.dialog.anchorOffsetY = this.dialog.height / 2;
+        this.dialog.x = -(this._bitmap.width) / 2;
+        this.dialog.y = 50;
+        this.dialog.addEventListener(egret.TouchEvent.TOUCH_TAP, function () {
+            console.log("onclick");
+            for (var i = 0; i < _this._taskList.length; i++) {
+                if (_this._taskList[i].fromNpcId == _this._id) {
+                    TaskService.accept(_this._taskList[i].id);
+                }
+                else if (_this._taskList[i].toNpcId == _this.id) {
+                    TaskService.complete(_this._taskList[i].id);
+                    TaskService.submit(_this._taskList[i].id);
+                }
+                _this.dialog.visible = false;
+            }
+        }, this);
+        this.dialog.touchEnabled = true;
+        //console.log("this:"+this.x+","+this.y);
+        //console.log("bitmap:"+this._bitmap.x+","+this._bitmap.y);
+        //console.log("emoji:"+this._emoji.x+","+this._emoji.y);
     }
     var d = __define,c=NPC,p=c.prototype;
     d(p, "id"
@@ -37,6 +63,8 @@ var NPC = (function (_super) {
         if (this._taskList.length > 0) {
             for (var i = 0; i < this._taskList.length; i++) {
                 if (task == this._taskList[i]) {
+                    console.log("accept task fromNpcId:" + task.fromNpcId + " status:" + task.status);
+                    console.log("accept task fromNpcId:" + this._id + " status:" + TaskStatus.DURING);
                     if (task.fromNpcId == this._id && task.status == TaskStatus.DURING) {
                         this.changeEmoji(EmojiStatus.EMPTY);
                     }
@@ -65,6 +93,9 @@ var NPC = (function (_super) {
                 break;
         }
     };
+    p.onClick = function () {
+        this.addChild(this.dialog);
+    };
     return NPC;
 }(egret.DisplayObjectContainer));
 egret.registerClass(NPC,'NPC',["Observer"]);
@@ -83,20 +114,6 @@ var NPCManager = (function () {
         for (var i = 0; i < data.npcs.length; i++) {
             var npc = new NPC(data.npcs[i].id, data.npcs[i].name, data.npcs[i].bitmap, data.npcs[i].emoji, data.npcs[i].x, data.npcs[i].y);
             this.NPCList.push(npc);
-        }
-    };
-    NPCManager.setTouchEvent = function (e) {
-        var data = e.currentTarget;
-        switch (data.id) {
-            case "npc_0":
-                TaskService.accept("0");
-                break;
-            case "npc_1":
-                TaskService.complete("0");
-                TaskService.submit("0");
-                break;
-            default:
-                break;
         }
     };
     NPCManager.NPCList = [];

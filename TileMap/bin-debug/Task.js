@@ -51,7 +51,7 @@ var TaskService = (function () {
     };
     TaskService.initObserver = function () {
         NPCManager.init();
-        for (var i = 1; i < NPCManager.NPCList.length; i++) {
+        for (var i = 0; i < NPCManager.NPCList.length; i++) {
             this.observerList.push(NPCManager.NPCList[i]);
         }
     };
@@ -150,9 +150,9 @@ var TaskTextElement = (function (_super) {
         this.taskNameText.textColor = 0xffff00;
         this.taskNameText.textAlign = egret.HorizontalAlign.LEFT;
         this.taskNameText.type = egret.TextFieldType.DYNAMIC;
-        this.taskNameText.x = 0;
-        this.taskNameText.y = 0;
-        this.taskNameText.width = 200;
+        this.taskNameText.x = 10;
+        this.taskNameText.y = 10;
+        this.taskNameText.width = 180;
         this.taskNameText.height = 20;
         this.taskNameText.lineSpacing = 6;
         this.taskNameText.multiline = true;
@@ -161,10 +161,10 @@ var TaskTextElement = (function (_super) {
         this.taskDescText.fontFamily = "微软雅黑";
         this.taskDescText.textAlign = egret.HorizontalAlign.LEFT;
         this.taskDescText.type = egret.TextFieldType.DYNAMIC;
-        this.taskDescText.x = 0;
-        this.taskDescText.y = 20;
-        this.taskDescText.width = 200;
-        this.taskDescText.height = 20;
+        this.taskDescText.x = 10;
+        this.taskDescText.y = 30;
+        this.taskDescText.width = 180;
+        this.taskDescText.height = 40;
         this.taskDescText.lineSpacing = 6;
         this.taskDescText.multiline = true;
         this.taskStatusText.text = "当前状态 : " + ChineseTaskStatus[status];
@@ -172,10 +172,10 @@ var TaskTextElement = (function (_super) {
         this.taskStatusText.fontFamily = "微软雅黑";
         this.taskStatusText.textAlign = egret.HorizontalAlign.LEFT;
         this.taskStatusText.type = egret.TextFieldType.DYNAMIC;
-        this.taskStatusText.x = 0;
-        this.taskStatusText.y = 40;
-        this.taskStatusText.width = 200;
-        this.taskStatusText.height = 50;
+        this.taskStatusText.x = 10;
+        this.taskStatusText.y = 70;
+        this.taskStatusText.width = 180;
+        this.taskStatusText.height = 40;
         this.taskStatusText.lineSpacing = 6;
         this.taskStatusText.multiline = true;
         this.addChild(this.taskNameText);
@@ -232,7 +232,21 @@ var DialogPanel = (function (_super) {
     __extends(DialogPanel, _super);
     function DialogPanel() {
         _super.call(this);
-        this.dialog = new egret.TextField;
+        this.desc = new egret.TextField;
+        this.button = new egret.Shape;
+        this.button.x = 0;
+        this.button.y = 0;
+        this.button.graphics.clear();
+        this.button.graphics.beginFill(0x000000, 1.0);
+        this.button.graphics.drawRect(0, 0, 50, 30);
+        this.button.graphics.endFill();
+        this.addChild(this.button);
+        this.desc.text = "确定";
+        this.desc.size = 14;
+        this.desc.fontFamily = "微软雅黑";
+        this.desc.x = 0;
+        this.desc.y = 0;
+        this.addChild(this.desc);
     }
     var d = __define,c=DialogPanel,p=c.prototype;
     return DialogPanel;

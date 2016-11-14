@@ -101,24 +101,26 @@ var Main = (function (_super) {
      * Create a game scene
      */
     p.createGameScene = function () {
-        //添加地图
-        var map = new TileMap();
-        this.addChild(map);
-        //this.astarPath(9,0);
-        var chara = new Character(this);
-        this.addChild(chara);
-        chara.idle();
-        //添加点击监听
-        this.stage.addEventListener(egret.TouchEvent.TOUCH_TAP, function (e) {
-            var startx = Math.floor((chara._body.x) / 50);
-            var starty = Math.floor(chara._body.y / 50);
-            var endx = Math.floor(e.localX / 50);
-            var endy = Math.floor(e.localY / 50);
-            var path = map.astarPath(startx - 1, starty, endx, endy);
-            if (path.length > 0) {
-                chara.move(e.localX, e.localY, path);
-            }
-        }, this);
+        /*//添加地图
+         var map: TileMap = new TileMap();
+         this.addChild(map);
+         //this.astarPath(9,0);
+ 
+         var chara: Character = new Character(this);
+         this.addChild(chara);
+         chara.idle();
+ 
+         //添加点击监听
+         this.stage.addEventListener(egret.TouchEvent.TOUCH_TAP, function (e: egret.TouchEvent): void {
+             var startx: number = Math.floor((chara._body.x) / 50);
+             var starty: number = Math.floor(chara._body.y / 50);
+             var endx: number = Math.floor(e.localX / 50);
+             var endy: number = Math.floor(e.localY / 50);
+             var path: Point[] = map.astarPath(startx - 1, starty, endx, endy);
+             if (path.length > 0) {
+                 chara.move(e.localX, e.localY, path);
+             }
+         }, this);*/
         TaskService.init();
         for (var i = 0; i < NPCManager.NPCList.length; i++) {
             this.addChild(NPCManager.NPCList[i]);
