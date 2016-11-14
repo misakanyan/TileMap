@@ -178,7 +178,7 @@ class TaskTextElement extends egret.DisplayObjectContainer {
     constructor(id: string, name: string, status: TaskStatus, desc: string) {
         super();
         this._taskid = id;
-        this.taskNameText.text = "任务:" + name;
+        this.taskNameText.text = "任务 : " + name;
         this.taskNameText.size = 14;
         this.taskNameText.fontFamily = "微软雅黑";
         this.taskNameText.textColor = 0xffff00;
@@ -203,7 +203,7 @@ class TaskTextElement extends egret.DisplayObjectContainer {
         this.taskDescText.lineSpacing = 6;
         this.taskDescText.multiline = true;
 
-        this.taskStatusText.text = "当前状态:" + ChineseTaskStatus[status];
+        this.taskStatusText.text = "当前状态 : " + ChineseTaskStatus[status];
         this.taskStatusText.size = 14;
         this.taskStatusText.fontFamily = "微软雅黑";
         this.taskStatusText.textAlign = egret.HorizontalAlign.LEFT;
@@ -221,8 +221,8 @@ class TaskTextElement extends egret.DisplayObjectContainer {
     }
 
     changeText(task: Task) {
-        this.taskNameText.text = "任务:" + task.name;
-        this.taskStatusText.text = "当前状态:" + ChineseTaskStatus[task.status];
+        this.taskNameText.text = "任务 : " + task.name;
+        this.taskStatusText.text = "当前状态 : " + ChineseTaskStatus[task.status];
         this.taskDescText.text = task.desc;
         console.log("panel taskinfo change success");
     }
@@ -264,6 +264,16 @@ class TaskPanel extends egret.DisplayObjectContainer implements Observer {
         }
     }
 
+}
+
+class DialogPanel extends egret.DisplayObjectContainer{
+
+    private dialog:egret.TextField = new egret.TextField;
+
+    constructor(){
+        super();
+        
+    }
 }
 
 var ChineseTaskStatus = {

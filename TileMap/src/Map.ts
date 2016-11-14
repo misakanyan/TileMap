@@ -29,7 +29,7 @@ var config: TileData[] = [
     { x: 7, y: 3, walkable: true, image: "1_png" },
     { x: 8, y: 3, walkable: true, image: "1_png" },
     { x: 9, y: 3, walkable: true, image: "1_png" },
-    { x: 10, y: 3, walkable: true, image: "1_png" },
+    { x: 10, y: 3, walkable: false, image: "1_png" }, //此处有npc
     { x: 1, y: 4, walkable: false, image: "2_png" },
     { x: 2, y: 4, walkable: true, image: "1_png" },
     { x: 3, y: 4, walkable: false, image: "2_png" },
@@ -40,7 +40,7 @@ var config: TileData[] = [
     { x: 8, y: 4, walkable: true, image: "1_png" },
     { x: 9, y: 4, walkable: false, image: "2_png" },
     { x: 10, y: 4, walkable: true, image: "1_png" },
-    { x: 1, y: 5, walkable: true, image: "1_png" },
+    { x: 1, y: 5, walkable: false, image: "1_png" }, //此处有npc
     { x: 2, y: 5, walkable: true, image: "1_png" },
     { x: 3, y: 5, walkable: true, image: "1_png" },
     { x: 4, y: 5, walkable: true, image: "1_png" },

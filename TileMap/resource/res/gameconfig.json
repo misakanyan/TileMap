@@ -1,9 +1,9 @@
 {
     "tasks":[
-        {"id":"0","name":"寻找Yomi","status":1,"desc":"找到Yomi，和她进行对话","fromNpcId":"npc_0","toNpcId":"npc_1"}
+        {"id":"0","name":"寻找npc_0","status":1,"desc":"找到npc_0，进行对话","fromNpcId":"npc_0","toNpcId":"npc_1"}
     ],
     "npcs":[
-        {"id":"npc_0","name":"mikoto","bitmap":"npc_0_jpg","emoji":0,"x":100,"y":200},
-        {"id":"npc_1","name":"touma","bitmap":"npc_1_jpg","emoji":0,"x":300,"y":200}
+        {"id":"npc_0","name":"mikoto","bitmap":"npc_0_png","emoji":0,"x":475,"y":125},
+        {"id":"npc_1","name":"touma","bitmap":"npc_1_png","emoji":0,"x":25,"y":225}
     ]
 }

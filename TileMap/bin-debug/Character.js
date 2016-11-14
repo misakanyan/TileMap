@@ -60,17 +60,13 @@ var Character = (function (_super) {
     //播放运动动画
     p.startMove = function () {
         var _this = this;
-        var list = ["chara1_png", "chara2_png", "chara3_png", "chara4_png", "chara5_png",
-            "chara6_png", "chara7_png", "chara8_png", "chara9_png", "chara10_png", "chara11_png",
-            "chara12_png", "chara13_png", "chara14_png", "chara15_png", "chara16_png", "chara17_png",
-            "chara18_png", "chara19_png", "chara20_png", "chara21_png", "chara22_png", "chara23_png",
-            "chara24_png", "chara25_png", "chara26_png"];
+        var list = ["chara1_png", "chara2_png", "chara3_png"];
         var count = -1;
         //this._body.texture = RES.getRes("3_png");
         //循环执行
         egret.Ticker.getInstance().register(function () {
             if (_this._ifmove) {
-                count += 1.0;
+                count += 0.05;
                 if (count >= list.length) {
                     count = 0;
                 }
